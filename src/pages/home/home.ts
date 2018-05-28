@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
+import { Calendar } from '@ionic-native/calendar';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +22,16 @@ export class HomePage {
 	currentYear: any;
 	currentDate: any;
 
-  constructor(public navCtrl: NavController) {
+  isSelected: any;
+
+  selectedDate: any = [];
+
+  constructor(
+    public navCtrl: NavController,
+    private calendar: Calendar,
+    private alertCtrl: AlertController) {
+      this.isSelected = false;
+
       this.baseDate = new Date().getDate();
   }
 
@@ -120,4 +130,24 @@ export class HomePage {
     this.goToLastMonth();
   }
 
+  selectDate(day) {
+    this.isSelected = false;
+    for (let i = 0; i < this.selectedDate.length; i ++) {
+      if (day == this.selectedDate[i]) {
+        this.isSelected = true;
+        this.selectedDate.splice(i, 1);
+        break;
+      } else {
+        this.isSelected = false;
+      }
+    }
+
+    if (!this.isSelected) {
+      this.selectedDate.push(day);
+    }
+  }
+
+  isInclude(day) {
+    return this.selectedDate.indexOf(day) !== -1;
+  }
 }

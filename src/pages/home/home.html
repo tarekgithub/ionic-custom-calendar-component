@@ -24,13 +24,31 @@
         </ion-row>
         <div (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)" style="padding: 10px 0;">
           <ion-row class="calendar-date">
-            <ion-col col-1 *ngFor="let day of currentWeek">
-              <span class="currentDate" *ngIf="currentDate === day; else otherDate">{{day}}</span>
-              <ng-template #otherDate class="otherDate">{{day}}</ng-template>
+            <ion-col col-1 *ngFor="let day of currentWeek" (click)="selectDate(day)">
+              <!-- <span class="currentDate" *ngIf="currentDate === day; else otherDate">{{day}}</span>
+              <span class="selected-date" *ngIf="isInclude(day); else otherDate">{{day}}</span> -->
+              <!-- <span ng-class="{'aa': inInlcude(), 'bb': wef, ''}"></span> -->
+              <!-- <ng-template #otherDate class="otherDate">{{day}}</ng-template> -->
+              <span [ngClass]="{'currentDate': currentDate === day, 'selected-date': isInclude(day), 'otherDate': !((currentDate === day) && isInclude(day))}">{{day}}</span>
             </ion-col>
           </ion-row>
         </div>
       </ion-grid>
     </div>
+  </div>
+  <div class="selected-event" *ngIf="isSelected">
+    <ion-list>
+      <ion-item *ngFor="let se of selectedEvent">
+        <ion-buttons end>
+          <button ion-button clear icon-only (click)="deleteEvent(se)">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-buttons>
+        <h2>{{se.title}}</h2>
+        <h3>{{se.message}}</h3>
+        <p>Start Date: {{se.startDate}}<br>
+        Start Date: {{se.endDate}}</p>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

@@ -19,14 +19,15 @@ page-home {
     color: #999999;
     font-size: 90%;
  	}
- 	.currentDate, .otherDate {
+ 	.currentDate, .otherDate, .selected-date {
     padding: 5px;
  	}
  	.currentDate {
     font-weight: bold;
-    color: #48C5CD;
+    color: white;
     border-radius: 50%;
-    border: #48c5cd dashed 2px;
+    /*border: #48c5cd dashed 2px;*/
+    background-color: #48C5CD;
  	}
  	.calendar-header {
     background-color: white;
@@ -45,9 +46,10 @@ page-home {
     border-radius: 30px;
   }
   .selected-date {
-    width: 20px;
-    height: 2px;
-    background-color: blue;
+    border-radius: 50%;
+    border: #48c5cd dashed 2px;
+    /*color: white;
+    background-color: blue;*/
   }
   .unselected-date {
     border: none;

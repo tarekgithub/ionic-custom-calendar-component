@@ -25,6 +25,7 @@ export class HomePage {
   isSelected: any;
 
   selectedDate: any = [];
+  oneSelectedDate: any;
 
   constructor(
     public navCtrl: NavController,
@@ -131,19 +132,25 @@ export class HomePage {
   }
 
   selectDate(day) {
-    this.isSelected = false;
-    for (let i = 0; i < this.selectedDate.length; i ++) {
-      if (day == this.selectedDate[i]) {
-        this.isSelected = true;
-        this.selectedDate.splice(i, 1);
-        break;
-      } else {
-        this.isSelected = false;
-      }
-    }
+    // this.isSelected = false;
+    // for (let i = 0; i < this.selectedDate.length; i ++) {
+    //   if (day == this.selectedDate[i]) {
+    //     this.isSelected = true;
+    //     this.selectedDate.splice(i, 1);
+    //     break;
+    //   } else {
+    //     this.isSelected = false;
+    //   }
+    // }
 
-    if (!this.isSelected) {
-      this.selectedDate.push(day);
+    // if (!this.isSelected) {
+    //   this.selectedDate.push(day);
+    // }
+    
+    if(this.oneSelectedDate == day) {
+      this.oneSelectedDate = 999;
+    } else {
+      this.oneSelectedDate = day;
     }
   }
 

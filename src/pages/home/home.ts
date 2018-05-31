@@ -26,6 +26,8 @@ export class HomePage {
 
   selectedDate: any = [];
   oneSelectedDate: any;
+  oneSelectedYear: any;
+  oneSelectedMonth: any;
 
   constructor(
     public navCtrl: NavController,
@@ -62,27 +64,36 @@ export class HomePage {
     var prevNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
     for(var i = prevNumOfDays-(firstDayThisMonth-1); i <= prevNumOfDays; i++) {
       this.daysInLastMonth.push(i);
-      this.daysTotal.push(i);
+      // this.daysTotal.push(i);
+      let month = this.monthNames[this.date.getMonth()-1];
+      this.daysTotal.push({day: i, month: month})
     }
 
     var thisNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDate();
     for (var i = 0; i < thisNumOfDays; i++) {
+      let aa = {day: i, month: 7}
       this.daysInThisMonth.push(i+1);
-      this.daysTotal.push(i+1);
+      // this.daysTotal.push(i+1,);
+      let month = this.monthNames[this.date.getMonth()];
+      this.daysTotal.push({day: i+1, month: month})
     }
 
     var lastDayThisMonth = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDay();
     var nextNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+2, 0).getDate();
     for (var i = 0; i < (6-lastDayThisMonth); i++) {
       this.daysInNextMonth.push(i+1);
-      this.daysTotal.push(i+1);
+      // this.daysTotal.push(i+1);
+      let month = this.monthNames[this.date.getMonth()+1];
+      this.daysTotal.push({day: i+1, month: month})
     }
 
     var totalDays = this.daysInLastMonth.length+this.daysInThisMonth.length+this.daysInNextMonth.length;
     if(totalDays<36) {
       for(var i = (7-lastDayThisMonth); i < ((7-lastDayThisMonth)+7); i++) {
         this.daysInNextMonth.push(i);
-        this.daysTotal.push(i);
+        // this.daysTotal.push(i);
+        let month = this.monthNames[this.date.getMonth()+1];
+      this.daysTotal.push({day: i, month: month})
       }
     }
 
@@ -147,14 +158,17 @@ export class HomePage {
     //   this.selectedDate.push(day);
     // }
     
-    if(this.oneSelectedDate == day) {
-      this.oneSelectedDate = 999;
+    if(this.oneSelectedDate == day.day && this.oneSelectedMonth == day.month && this.oneSelectedYear == this.currentYear) {
+      this.oneSelectedDate = '';
+      this.oneSelectedMonth = '';
     } else {
-      this.oneSelectedDate = day;
+      this.oneSelectedDate = day.day;
+      this.oneSelectedYear = this.currentYear;
+      this.oneSelectedMonth = day.month;
     }
   }
 
   isInclude(day) {
-    return this.selectedDate.indexOf(day) !== -1;
+    return this.selectedDate.indexOf(day.day) !== -1;
   }
 }
